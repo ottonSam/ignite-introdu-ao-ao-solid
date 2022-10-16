@@ -9,13 +9,14 @@ class ListAllUsersController {
     // Complete aqui
     const { user_id } = request.params;
 
-    const allUser = this.listAllUsersUseCase.execute({ user_id });
-
-    if (allUser === undefined) {
-      return response.status(400).json({ error: "mensagem do erro" });
+    
+    try {
+      const allUser = this.listAllUsersUseCase.execute({ user_id });
+      return response.json(allUser);
+    } catch (err) {
+      return response.status(400).json({ error: err });
     }
 
-    return response.json(allUser);
   }
 }
 
